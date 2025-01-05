@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{{ url_for('static', filename='images/vehicle.png') }}" alt="Vehicle" class="form-image">
+            <h1>Vehicle Prediction System</h1>
+            <p>Predict breakdown likelihood</p>
+        </div>
+
+        <form action="/result" method="POST" class="form">
+            <h2>Enter Vehicle Details</h2>
+            <div class="form-columns">
+                <div class="form-column">
+                    {% for feature in features[0::2] %} <!-- Left Column (every alternate feature) -->
+                        <div class="form-group">
+                            <label for="{{ feature }}">{{ feature.replace('_', ' ').capitalize() }}</label>
+                            <input type="text" id="{{ feature }}" name="{{ feature }}" placeholder="Enter {{ feature.replace('_', ' ').capitalize() }}" required>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="form-column">
+                    {% for feature in features[1::2] %} <!-- Right Column (remaining alternate features) -->
+                        <div class="form-group">
+                            <label for="{{ feature }}">{{ feature.replace('_', ' ').capitalize() }}</label>
+                            <input type="text" id="{{ feature }}" name="{{ feature }}" placeholder="Enter {{ feature.replace('_', ' ').capitalize() }}" required>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit" class="btn">Predict</button>
+        </form>
+    </div>
+</body>
+</html>
